@@ -22,14 +22,11 @@ const CoursePlayer: FC<Props> = ({videoUrl}) => {
         });
     }, [videoUrl]);
 
-    console.log("Hiiiii");
-    console.log(videoData);
-
     return (
         <div style={{position: "relative", paddingTop: "56.25%", overflow: "hidden"}}>
             {videoData.otp && videoData.playbackInfo && (
                 <iframe
-                    src={`https://player.vdocipher.com/v2/?otp=${videoData?.otp}&playbackInfo=${videoData.playbackInfo}&player=ZTf6p0BRElIO51iT`}
+                    src={`https://player.vdocipher.com/v2/?otp=${videoData?.otp}&playbackInfo=${videoData.playbackInfo}&player=rpIbYV68A0QZM20u`}
                     style={{
                         position: "absolute",
                         top: 0,
