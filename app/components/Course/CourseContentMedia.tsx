@@ -70,7 +70,7 @@ const CourseContentMedia = ({data, id, activeVideo, setActiveVideo, user, refetc
     };
 
     const [showAIModal, setShowAIModal] = useState(false);
-    const [courseContext, setCourseContext] = useState<CourseContextType>(fallbackCourseContext);
+    const [courseContext, setCourseContext] = useState<CourseContextType | null>(null);
     const [chatMessages, setChatMessages] = useState<{role: "user" | "ai"; text: string}[]>([]);
     const [userInput, setUserInput] = useState("");
 
