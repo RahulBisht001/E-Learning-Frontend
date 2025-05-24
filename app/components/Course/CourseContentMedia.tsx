@@ -13,10 +13,12 @@ import React, {useEffect, useState} from "react";
 import {toast} from "react-hot-toast";
 import {AiFillStar, AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineStar} from "react-icons/ai";
 import {BiMessage} from "react-icons/bi";
-import {VscVerifiedFilled} from "react-icons/vsc";
+import {VscVerifiedFilled, VscSend} from "react-icons/vsc";
 import {BsStars} from "react-icons/bs";
 import Ratings from "@/app/utils/Ratings";
 import socketIO from "socket.io-client";
+import ReactMarkdown from "react-markdown";
+
 const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
 const socketId = socketIO(ENDPOINT, {transports: ["websocket"]});
 
@@ -497,8 +499,8 @@ const CourseContentMedia = ({data, id, activeVideo, setActiveVideo, user, refetc
             )}
 
             {showAIModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white dark:bg-gray-900 p-4 rounded-lg w-[90%] max-w-[600px] h-[80%] flex flex-col shadow-xl">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 font-Poppins">
+                    <div className="bg-white dark:bg-gray-900 p-4 rounded-xl w-[90%] max-w-[1000px] h-[80%] flex flex-col shadow-xl">
                         <div className="flex justify-between items-center mb-2">
                             <h2 className="text-xl font-semibold text-black dark:text-white">
                                 Ask AI (Course Assistant)
@@ -508,15 +510,39 @@ const CourseContentMedia = ({data, id, activeVideo, setActiveVideo, user, refetc
                             </button>
                         </div>
 
-                        <div className="flex-1 overflow-y-auto space-y-3 border p-2 rounded bg-gray-100 dark:bg-gray-800">
+                        {/* <div className="flex-1 overflow-y-auto space-y-3 p-4 rounded-xl bg-gray-100 dark:bg-gray-800 text-sm">
                             {chatMessages.map((msg, i) => (
                                 <div
                                     key={i}
-                                    className={`p-2 rounded ${
-                                        msg.role === "user" ? "bg-blue-100 text-black" : "bg-green-100 text-black"
+                                    className={`p-2 rounded-xl ${
+                                        msg.role === "user"
+                                            ? "dark:text-white text-black"
+                                            : " dark:text-white text-black"
                                     } dark:bg-opacity-20`}
                                 >
-                                    <strong>{msg.role === "user" ? "You" : "AI"}:</strong> {msg.text}
+                                    {msg.role === "user" ? "You" : "AI"} :&nbsp; {msg.text}
+                                </div>
+                            ))}
+                        </div> */}
+
+                        <div className="flex-1 overflow-y-auto space-y-3 p-4 rounded-xl bg-gray-100 dark:bg-gray-800 text-sm">
+                            {chatMessages.map((msg, i) => (
+                                <div key={i} className="flex items-start space-x-3">
+                                    <img
+                                        src={
+                                            msg.role === "user" ? "/assests/user-avatar.png" : "/assests/bot-avatar.png"
+                                        }
+                                        alt={msg.role === "user" ? "User" : "Bot"}
+                                        className="w-10 h-10 rounded-full "
+                                    />
+                                    <div
+                                        className={`p-2 rounded-xl max-w-[80%] ${
+                                            msg.role === "user" ? "bg-blue-400 text-black" : "bg-white text-gray-900"
+                                        }`}
+                                    >
+                                        <ReactMarkdown>{msg.text}</ReactMarkdown>
+                                        {/* {msg.text} */}
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -577,17 +603,21 @@ const CourseContentMedia = ({data, id, activeVideo, setActiveVideo, user, refetc
                                     ]);
                                 }
                             }}
-                            className="mt-2 flex"
+                            className="mt-2 flex text-sm"
                         >
                             <input
                                 type="text"
                                 value={userInput}
                                 onChange={(e) => setUserInput(e.target.value)}
                                 placeholder="Ask your question..."
-                                className="flex-1 border p-2 rounded-l dark:text-black"
+                                className="flex-1 p-2 px-4 rounded-xl dark:text-white outline-none text-black border border-black mr-4"
                             />
-                            <button type="submit" className="bg-blue-600 text-white px-4 rounded-r">
-                                Send
+                            <button
+                                type="submit"
+                                className="bg-none text-black border border-black dark:border-white dark:text-white px-4 rounded-xl flex flex-row justify-center items-center gap-2"
+                            >
+                                Ask
+                                <VscSend />
                             </button>
                         </form>
                     </div>
