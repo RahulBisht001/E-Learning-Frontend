@@ -14,6 +14,7 @@ import {toast} from "react-hot-toast";
 import {AiFillStar, AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineStar} from "react-icons/ai";
 import {BiMessage} from "react-icons/bi";
 import {VscVerifiedFilled} from "react-icons/vsc";
+import {BsStars} from "react-icons/bs";
 import Ratings from "@/app/utils/Ratings";
 import socketIO from "socket.io-client";
 const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
@@ -79,7 +80,7 @@ const CourseContentMedia = ({data, id, activeVideo, setActiveVideo, user, refetc
             const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/ai/context/${id}`);
             const data = await res.json();
 
-            alert(JSON.stringify(data));
+            console.log(JSON.stringify(data));
 
             setCourseContext({
                 title: data.title,
@@ -226,8 +227,9 @@ const CourseContentMedia = ({data, id, activeVideo, setActiveVideo, user, refetc
                     Prev Lesson
                 </div>
 
-                <div className={`${styles.button} w-auto`} onClick={handleOpenAIModal}>
+                <div className={`${styles.button} !w-[unset] !bg-red-500`} onClick={handleOpenAIModal}>
                     Ask AI
+                    <BsStars className="ml-2" />
                 </div>
 
                 <div
